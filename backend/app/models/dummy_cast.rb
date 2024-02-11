@@ -1,0 +1,2 @@
+class DummyCast < ApplicationRecord
+end
