@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_11_151045) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_12_001803) do
+  create_table "casts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "annict_id", null: false
+    t.integer "sort_number"
+    t.integer "cast_id", null: false
+    t.string "character_name"
+    t.string "character_name_kana"
+    t.integer "person_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "dummy_casts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "annict_id", null: false
     t.integer "person_id", null: false

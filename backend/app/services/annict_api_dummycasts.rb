@@ -16,7 +16,6 @@ class AnnictApiDummycasts
       })
       data = JSON.parse(response.body)
       next unless data["casts"].is_a?(Array)
-      
       create_dummycast_records(data["casts"], work_annict_id)
     end
   end
@@ -30,7 +29,7 @@ class AnnictApiDummycasts
       cast_record = DummyCast.find_or_initialize_by(annict_id: work_annict_id, person_id:cast["person"]["id"])
       # レコードの属性を更新
       unless cast_record.update(
-        annict_id: work["id"],
+        annict_id: work["annict_id"],
         person_id: cast["person"]["id"]
       )
       end

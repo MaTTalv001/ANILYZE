@@ -22,6 +22,7 @@ class AnnictApiWorks
         next unless data["works"].is_a?(Array)
         
         create_work_records(data["works"])
+        sleep(1)
       end
     end
   end
