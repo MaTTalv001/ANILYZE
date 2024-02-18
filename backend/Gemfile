@@ -48,3 +48,5 @@ end
 
 gem 'faraday'
 gem 'dotenv-rails'
+
+gem 'kaminari'
