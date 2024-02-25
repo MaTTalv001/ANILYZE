@@ -5,7 +5,7 @@ class Work < ApplicationRecord
 
   # Ransackで検索可能な属性を指定
   def self.ransackable_attributes(auth_object = nil)
-    super + %w[title]
+    super + %w[title year]
   end
 
   # 任意: Ransackで検索可能な関連を指定（人物名やキャラクター名での検索を許可する場合）
