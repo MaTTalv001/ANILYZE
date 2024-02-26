@@ -2,6 +2,7 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { FC } from "react";
+import TwitterTimeline from "/src/components/TwitterTimeline";
 
 type PersonDetails = {
   id: number;
@@ -32,6 +33,8 @@ const Person: FC = () => {
   return (
     <div>
       <h1>{data.name}</h1>
+      <h2>{data.twitter_url}</h2>
+      <TwitterTimeline twitterUrl={`https://twitter.com/${data.twitter_url}`} />
       <h2>Works</h2>
       <ul>
         {data?.works?.map((work) => (
