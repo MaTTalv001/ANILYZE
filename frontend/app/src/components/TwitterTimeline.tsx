@@ -14,11 +14,13 @@ const TwitterTimeline = ({ twitterUrl }: { twitterUrl: string }) => {
   }, []);
 
   return (
-    <div className="w-1/3 h-96 overflow-y-auto">
-      <a className="twitter-timeline" href={twitterUrl}>
-        Tweets by {twitterUrl.split("/").pop()}
-      </a>
-    </div>
+    <>
+      <div className="h-96 overflow-y-auto">
+        <a className="twitter-timeline" href={twitterUrl}>
+          Tweets by {twitterUrl.split("/").pop()}
+        </a>
+      </div>
+    </>
   );
 };
 

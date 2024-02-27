@@ -1,20 +1,27 @@
-// components/WorkCard.tsx
 import React from "react";
 import { Work } from "../types"; // 適宜パスを調整してください
 
-interface WorkCardProps {
-  work: Work;
+interface Cast {
+  id: number;
+  person_id: number;
+  character_name: string;
+  role: string;
 }
 
-const WorkCard: React.FC<WorkCardProps> = ({ work }) => {
-  const handleWorkClick = (annictId: number) => {
-    // 作品クリック時の処理（例: 詳細ページへのナビゲーション）
-    console.log(`Work clicked: ${annictId}`);
-  };
+interface WorkCardCastProps {
+  work: Work;
+  person_id: number; // person_idを受け取るように追加
+}
+
+const WorkCardCast: React.FC<WorkCardCastProps> = ({ work, person_id }) => {
+  // 特定のperson_idに一致するcastsをフィルタリング
+  const matchingCasts = work.casts.filter(
+    (cast) => cast.person_id === person_id
+  );
 
   return (
     <div className="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-      <div className="h-64 flex flex-col justify-center items-center bg-blue-600 rounded-lg">
+      <div className="h-42 flex flex-col justify-center items-center bg-blue-600 rounded-lg">
         <img
           src={work.image_url || "/default-image.png"}
           alt={work.title}
@@ -29,6 +36,24 @@ const WorkCard: React.FC<WorkCardProps> = ({ work }) => {
         <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-300">
           {work.title}
         </h3>
+        {/* ここにキャラクター名と役割を表示 */}
+        {matchingCasts.length > 0 && (
+          <div>
+            <h4 className="text-lg font-medium text-gray-700 dark:text-gray-200">
+              Characters:
+            </h4>
+            <ul>
+              {matchingCasts.map((cast) => (
+                <li
+                  key={cast.id}
+                  className="text-xl text-gray-600 dark:text-gray-400"
+                >
+                  {cast.character_name}　役
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
       <div className="mt-auto flex border-t border-gray-200 divide-x divide-gray-200 dark:border-gray-700 dark:divide-gray-700">
         <a
@@ -52,4 +77,4 @@ const WorkCard: React.FC<WorkCardProps> = ({ work }) => {
   );
 };
 
-export default WorkCard;
+export default WorkCardCast;
