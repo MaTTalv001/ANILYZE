@@ -1,5 +1,6 @@
+// WorkCardCast.tsx
 import React from "react";
-import { Work } from "../types"; // 適宜パスを調整してください
+import { Work } from "../types";
 
 interface Cast {
   id: number;
@@ -21,7 +22,7 @@ const WorkCardCast: React.FC<WorkCardCastProps> = ({ work, person_id }) => {
 
   return (
     <div className="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-      <div className="h-42 flex flex-col justify-center items-center bg-blue-600 rounded-lg">
+      <div className="h-64 flex flex-col justify-center items-center bg-blue-600 rounded-lg">
         <img
           src={work.image_url || "/default-image.png"}
           alt={work.title}

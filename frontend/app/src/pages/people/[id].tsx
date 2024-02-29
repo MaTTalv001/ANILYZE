@@ -1,15 +1,18 @@
 // pages/people/[id].tsx
 import { useRouter } from "next/router";
+import { FC, useEffect, useState } from "react";
 import useSWR from "swr";
-import { FC } from "react";
-import TwitterTimeline from "/src/components/TwitterTimeline";
-import WorkCardCast from "/src/components/WorkCardCast";
+import TwitterTimeline from "../../components/TwitterTimeline";
+import WorkCardCast from "../../components/WorkCardCast";
+import LineChart from "../../components/LineChart";
+import CoActorsTable from "../../components/CoActorsTable";
 
 type PersonDetails = {
   id: number;
   name: string;
   name_en?: string; // 英語名がある場合に備えてオプショナルに
   twitter_url?: string; // Twitter URLがある場合に備えてオプショナルに
+  official_site_url?: string;
   works: Array<{
     id: number;
     title: string;
@@ -26,16 +29,31 @@ type PersonDetails = {
     }>;
   }>;
 };
+// worksByYear の型を定義
+type WorksByYear = {
+  [year: string]: number;
+};
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const Person: FC = () => {
   const router = useRouter();
   const { id } = router.query;
+  const [worksByYear, setWorksByYear] = useState<WorksByYear>({});
   const { data, error } = useSWR<PersonDetails>(
     id ? `http://localhost:3021/api/v1/people/${id}` : null,
     fetcher
   );
+  useEffect(() => {
+    if (id !== undefined) {
+      fetch(`http://localhost:3021/api/v1/people/${id}/works_by_year`)
+        .then((response) => response.json())
+        .then((linedata) => {
+          setWorksByYear(linedata);
+          console.log("Received data:", linedata); // この行をコールバック関数の内部に移動
+        });
+    }
+  }, [id]);
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
@@ -100,14 +118,11 @@ const Person: FC = () => {
               </div>
             </div>
           </div>
-          <div className="flex-1 p-5">
-            <TwitterTimeline
-              twitterUrl={`https://twitter.com/${data.twitter_url}`}
-            />
+          <div className="flex-1 p-3">
+            <LineChart worksByYear={worksByYear} />
           </div>
         </div>
       </div>
-
       <div className="container mx-auto px-5">
         <h2 className="text-3xl dark:text-white p-5">出演作品</h2>
         <div className="flex h-96 overflow-y-auto">
@@ -117,6 +132,19 @@ const Person: FC = () => {
             ))}
           </div>
         </div>
+      </div>
+      <div className="container mx-auto px-5">
+        <h2 className="text-3xl dark:text-white p-5">X Post</h2>
+        <div className="flex-1 p-5">
+          <TwitterTimeline
+            twitterUrl={`https://twitter.com/${data.twitter_url}`}
+          />
+        </div>
+      </div>
+
+      <div className="container mx-auto pt-5 px-5">
+        <h2 className="text-3xl dark:text-white p-5">共演の多い声優</h2>
+        <CoActorsTable id={data.id.toString()} />
       </div>
     </>
   );
