@@ -1,10 +1,14 @@
 // pages/people/index.tsx
 import useSWR from "swr";
 import { FC } from "react";
+import PersonTable from "../../components/PersonTable";
 
 type Person = {
   id: number;
   name: string;
+  birthday: string;
+  official_site_url: string;
+  twitter_url: string;
 };
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -20,11 +24,10 @@ const People: FC = () => {
 
   return (
     <ul>
-      {data.map((person) => (
-        <li key={person.id}>
-          {person.id}　{person.name}
-        </li>
-      ))}
+      <div>
+        <h1 className="text-2xl font-bold my-4">People</h1>
+        <PersonTable people={data} />
+      </div>
     </ul>
   );
 };

@@ -15,22 +15,22 @@ const WorksTable: React.FC<WorksTableProps> = ({ works, person_id }) => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
-                  <th className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
                     Thumbnail
                   </th>
-                  <th className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
                     Title
                   </th>
-                  <th className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
                     Character & Role
                   </th>
-                  <th className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
                     Season
                   </th>
-                  <th className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
                     Official Site
                   </th>
-                  <th className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
                     X(Twitter)
                   </th>
                 </tr>
@@ -48,20 +48,20 @@ const WorksTable: React.FC<WorksTableProps> = ({ works, person_id }) => {
                         }
                       />
                     </td>
-                    <td className="text-wrap px-6 py-4 whitespace-nowrap text-xl text-gray-900">
+                    <td className="text-wrap px-6 py-4 whitespace-nowrap dark:text-white text-xl text-gray-900">
                       {work.title}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-lg text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap dark:text-white text-lg text-gray-500">
                       {work.casts
                         .filter((cast) => cast.person_id === person_id)
                         .map((cast) => (
                           <div key={cast.id}>{cast.character_name} 役</div>
                         ))}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-lg text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap dark:text-white text-lg text-gray-500">
                       {work.year} : {work.season}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-medium">
+                    <td className="px-6 py-4 whitespace-nowrap dark:text-white text-right text-lg font-medium">
                       <a
                         href={work.official_site_url}
                         className="text-indigo-600 hover:text-indigo-900"

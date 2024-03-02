@@ -32,7 +32,7 @@ const CoActorsTable: React.FC<CoActorsTableProps> = ({ id }) => {
   // coActorsData を使用してテーブルを構築
   return (
     <div className="pt-10">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {Object.entries(coActorsData).map(([personId, info]) => (
           <div
             key={personId}
@@ -46,12 +46,12 @@ const CoActorsTable: React.FC<CoActorsTableProps> = ({ id }) => {
                 {info.name}
               </a>
             </h3>
-            <p className="mt-1 text-2xl font-medium uppercase text-gray-700 dark:text-gray-200">
+            <p className="my-1 text-2xl font-medium uppercase text-gray-700 dark:text-gray-200">
               共演回数: {info.count}
             </p>
             <button
               onClick={() => openModal(info.works)}
-              className="mt-2 py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700"
+              className="pt-2 pb-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700"
             >
               共演作品
             </button>
