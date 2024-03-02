@@ -3,9 +3,10 @@ import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 import useSWR from "swr";
 import TwitterTimeline from "../../components/TwitterTimeline";
-import WorkCardCast from "../../components/WorkCardCast";
+import WorksTable from "../../components/WorksTable";
 import LineChart from "../../components/LineChart";
 import CoActorsTable from "../../components/CoActorsTable";
+import Loading from "../../components/Loading";
 
 type PersonDetails = {
   id: number;
@@ -56,7 +57,7 @@ const Person: FC = () => {
   }, [id]);
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <Loading />;
 
   return (
     <>
@@ -125,22 +126,16 @@ const Person: FC = () => {
       </div>
       <div className="container mx-auto px-5">
         <h2 className="text-3xl dark:text-white p-5">出演作品</h2>
-        <div className="flex h-96 overflow-y-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-            {data.works.map((work) => (
-              <WorkCardCast key={work.id} work={work} person_id={data.id} />
-            ))}
-          </div>
-        </div>
+        <WorksTable works={data.works} person_id={data.id} />
       </div>
-      <div className="container mx-auto px-5">
+      {/* <div className="container mx-auto px-5">
         <h2 className="text-3xl dark:text-white p-5">X Post</h2>
-        <div className="flex-1 p-5">
+        <div className="flex-1">
           <TwitterTimeline
             twitterUrl={`https://twitter.com/${data.twitter_url}`}
           />
         </div>
-      </div>
+  </div> */}
 
       <div className="container mx-auto pt-5 px-5">
         <h2 className="text-3xl dark:text-white p-5">共演の多い声優</h2>
