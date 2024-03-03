@@ -1,37 +1,61 @@
 // pages/people/index.tsx
-import useSWR from "swr";
-import { FC } from "react";
+import { useState, useEffect } from "react";
 import PersonTable from "../../components/PersonTable";
+import Pagination from "../../components/Pagination"; // Paginationコンポーネントをインポート
+import Loading from "../../components/Loading"; // Loadingコンポーネントをインポート（必要に応じて）
+import { fetchPeople } from "../../services/peopleService"; // fetchPeople関数をインポート
 
-type Person = {
-  id: number;
-  name: string;
-  birthday: string;
-  official_site_url: string;
-  twitter_url: string;
-};
+const PeoplePage = () => {
+  const [people, setPeople] = useState<Person[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  useEffect(() => {
+    const loadPeople = async () => {
+      setIsLoading(true);
+      try {
+        const data = await fetchPeople(currentPage);
+        setPeople(data.people);
+        setTotalPages(data.total_pages);
+      } catch (error) {
+        console.error("Failed to load people:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-const People: FC = () => {
-  const { data, error } = useSWR<Person[]>(
-    "http://localhost:3021/api/v1/people",
-    fetcher
-  );
+    loadPeople();
+  }, [currentPage]); // currentPageが変更された時にloadPeopleを再実行
 
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  if (isLoading) return <Loading />;
 
   return (
-    <ul>
-      <div>
-        <h1 className="flex justify-center text-2xl font-bold my-4">
-          声優リスト
-        </h1>
-        <PersonTable people={data} />
+    <div>
+      <h1 className="flex justify-center text-2xl font-bold my-4">
+        声優リスト
+      </h1>
+      <div className="m-5">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
-    </ul>
+      <PersonTable people={people} />
+      <div className="mb-10">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
+    </div>
   );
 };
 
-export default People;
+export default PeoplePage;

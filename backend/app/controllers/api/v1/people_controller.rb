@@ -3,9 +3,22 @@ module Api
   module V1
     class PeopleController < ApplicationController
       def index
-        people = Person.all
-        render json: people
+        @people = Person
+              .joins(:casts)
+              .select('people.*, COUNT(casts.annict_id) AS work_count')
+              .group('people.id')
+              .order('work_count DESC')
+              .page(params[:page] || 1)
+              .per(params[:per] || 25)
+              
+        render json: {
+          people: @people.as_json(methods: :work_count),
+          total_pages: @people.total_pages,
+          current_page: @people.current_page,
+          total_count: @people.total_count
+        }
       end
+
 
       def show
         person = Person.includes(works: :casts).find(params[:id])

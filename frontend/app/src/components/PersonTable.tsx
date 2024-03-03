@@ -16,24 +16,35 @@ const PersonTable: React.FC<PersonTableProps> = ({ people }) => {
                 <thead>
                   <tr>
                     <th className="px-6 py-3 text-left text-xl font-medium dark:text-white text-gray-500 uppercase">
-                      Name
+                      声優
                     </th>
                     <th className="px-6 py-3 text-left text-xl font-medium dark:text-white text-gray-500 uppercase">
-                      Birthday
+                      出演数
                     </th>
                     <th className="px-6 py-3 text-left text-xl font-medium dark:text-white text-gray-500 uppercase">
-                      Official Site
+                      誕生日
                     </th>
                     <th className="px-6 py-3 text-left text-xl font-medium dark:text-white text-gray-500 uppercase">
-                      X(Twitter)
+                      公式サイト
+                    </th>
+                    <th className="px-6 py-3 text-left text-xl font-medium dark:text-white text-gray-500 uppercase">
+                      公式X(Twitter)
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {people.map((person) => (
                     <tr key={person.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-xl dark:text-white text-gray-900">
-                        {person.name}
+                      <td className="px-6 py-4 whitespace-nowrap text-xl dark:text-white text-gray-500">
+                        <a
+                          href={`http://localhost:3020/people/${person.id}`}
+                          className="hover:underline"
+                        >
+                          {person.name}
+                        </a>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-500 dark:text-white">
+                        {person.work_count}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-xl dark:text-white text-gray-500">
                         {person.birthday}
@@ -64,6 +75,9 @@ const PersonTable: React.FC<PersonTableProps> = ({ people }) => {
               </table>
             </div>
           </div>
+          <a className="m-5 dark:text-white text-gray-500">
+            *出演数は本アプリでの記録に基づくもので、実際とは異なる場合があります
+          </a>
         </div>
       </div>
     </div>

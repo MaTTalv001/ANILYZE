@@ -38,4 +38,9 @@ class Person < ApplicationRecord
   sorted_result_with_index
 end
 
+# 出演作品数を返すメソッド
+  def work_count
+    works.count
+  end
+
 end
