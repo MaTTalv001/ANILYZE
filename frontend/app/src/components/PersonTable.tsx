@@ -1,5 +1,5 @@
 import React from "react";
-import { Person } from "../types"; // Person型を適切に定義する必要があります
+import { Person } from "../types"; // To Do Person型を適切に定義する
 
 interface PersonTableProps {
   people: Person[];
@@ -15,16 +15,16 @@ const PersonTable: React.FC<PersonTableProps> = ({ people }) => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead>
                   <tr>
-                    <th className="px-6 py-3 text-left text-lg font-medium dark:text-white text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-left text-xl font-medium dark:text-white text-gray-500 uppercase">
                       Name
                     </th>
-                    <th className="px-6 py-3 text-left text-lg font-medium dark:text-white text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-left text-xl font-medium dark:text-white text-gray-500 uppercase">
                       Birthday
                     </th>
-                    <th className="px-6 py-3 text-left text-lg font-medium dark:text-white text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-left text-xl font-medium dark:text-white text-gray-500 uppercase">
                       Official Site
                     </th>
-                    <th className="px-6 py-3 text-left text-lg font-medium dark:text-white text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-left text-xl font-medium dark:text-white text-gray-500 uppercase">
                       X(Twitter)
                     </th>
                   </tr>
@@ -32,13 +32,13 @@ const PersonTable: React.FC<PersonTableProps> = ({ people }) => {
                 <tbody>
                   {people.map((person) => (
                     <tr key={person.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-lg dark:text-white text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-xl dark:text-white text-gray-900">
                         {person.name}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-lg dark:text-white text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-xl dark:text-white text-gray-500">
                         {person.birthday}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-lg dark:text-white font-medium">
+                      <td className="px-6 py-4 whitespace-nowrap text-xl dark:text-white font-medium">
                         <a
                           href={person.official_site_url}
                           className="text-indigo-600 hover:text-indigo-900 dark:text-white"
@@ -48,7 +48,7 @@ const PersonTable: React.FC<PersonTableProps> = ({ people }) => {
                           Official Site
                         </a>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-lg font-medium dark:text-white">
+                      <td className="px-6 py-4 whitespace-nowrap text-xl font-medium dark:text-white">
                         <a
                           href={person.twitter_url}
                           className="text-indigo-600 hover:text-indigo-900 dark:text-white"

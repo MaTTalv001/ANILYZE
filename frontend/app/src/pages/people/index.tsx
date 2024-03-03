@@ -25,7 +25,9 @@ const People: FC = () => {
   return (
     <ul>
       <div>
-        <h1 className="text-2xl font-bold my-4">People</h1>
+        <h1 className="flex justify-center text-2xl font-bold my-4">
+          声優リスト
+        </h1>
         <PersonTable people={data} />
       </div>
     </ul>
