@@ -35,7 +35,7 @@ const PersonTable: React.FC<PersonTableProps> = ({ people }) => {
                 <tbody>
                   {people.map((person) => (
                     <tr key={person.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-xl dark:text-white text-gray-500">
+                      <td className="inline-flex items-center my-1 gap-x-1.5 py-5 px-3 rounded-md text-xl font-medium border border-gray-200 bg-white text-gray-800 shadow-xl dark:bg-slate-900 dark:border-gray-700 dark:text-white">
                         <a
                           href={`http://localhost:3020/people/${person.id}`}
                           className="hover:underline"
