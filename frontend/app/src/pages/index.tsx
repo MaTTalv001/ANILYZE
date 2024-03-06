@@ -44,7 +44,7 @@ const HomePage = () => {
   }
 
   return (
-    <div>
+    <div className="px-10 pb-5">
       <SearchForm onSearch={handleSearch} /> {/* 検索フォームの追加 */}
       <Pagination
         currentPage={currentPage}

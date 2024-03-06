@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :works, only: [:index]
+      resources :works, only: [:index, :show]
       resources :people, only: [:index, :show] do
         member do
           get 'works_by_year'

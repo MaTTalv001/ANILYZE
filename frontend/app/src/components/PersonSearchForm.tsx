@@ -38,7 +38,7 @@ const PersonSearchForm: React.FC<PersonSearchFormProps> = ({ onSearch }) => {
           name="name_cont"
           value={searchParams.name_cont || ""}
           onChange={handleChange}
-          placeholder="人物名"
+          placeholder="声優名"
           className="px-4 py-2 text-gray-400 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow"
         />
         <button

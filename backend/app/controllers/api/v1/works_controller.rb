@@ -14,5 +14,10 @@ class Api::V1::WorksController < ApplicationController
       total_count: works.total_count
     }
   end
+
+  def show
+    work = Work.includes(people: :casts).find(params[:id])
+    render json: work, include: [people: { include: :casts }]
+  end
 end
 

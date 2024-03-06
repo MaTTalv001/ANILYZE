@@ -3,14 +3,17 @@ module Api
   module V1
     class PeopleController < ApplicationController
       def index
-        @people = Person
-              .joins(:casts)
-              .select('people.*, COUNT(casts.annict_id) AS work_count')
-              .group('people.id')
-              .order('work_count DESC')
-              .page(params[:page] || 1)
-              .per(params[:per] || 25)
-              
+        # Ransackを使用した検索条件の適用
+        search_query = Person.ransack(params[:q])
+        @people = search_query
+                  .result
+                  .joins(:casts)
+                  .select('people.*, COUNT(casts.annict_id) AS work_count')
+                  .group('people.id')
+                  .order('work_count DESC')
+                  .page(params[:page] || 1)
+                  .per(params[:per] || 25)
+
         render json: {
           people: @people.as_json(methods: :work_count),
           total_pages: @people.total_pages,
