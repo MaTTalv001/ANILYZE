@@ -9,90 +9,63 @@ interface WorksTableProps {
 
 const WorksTable: React.FC<WorksTableProps> = ({ works, person_id }) => {
   return (
-    <div className="flex flex-col">
-      <div className="h-96 my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead>
-                <tr>
-                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
-                    Thumbnail
-                  </th>
-                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
-                    Title
-                  </th>
-                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
-                    Character & Role
-                  </th>
-                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
-                    Season
-                  </th>
-                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
+    <div className="flex flex-wrap -m-4">
+      {works.map((work) => (
+        <div key={work.id} className="p-4 md:w-1/2 lg:w-1/3">
+          <div className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+            <div className="p-4 md:p-5">
+              <div className="flex flex-col md:flex-row">
+                <div className="md:mr-4">
+                  <a href={`/works/${work.id}`}>
+                    <img
+                      src={work.image_url || "/default-image.png"}
+                      alt={work.title}
+                      className="h-20 w-20 md:h-24 md:w-24 rounded object-cover"
+                      onError={(e) => (e.target.src = "/default-image.png")}
+                    />
+                  </a>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-800 dark:text-white">
+                    <a href={`/works/${work.id}`}>{work.title}</a>
+                  </h3>
+                  <div className="mt-2 text-gray-500 dark:text-gray-400">
+                    {work.casts
+                      .filter((cast) => cast.person_id === person_id)
+                      .map((cast) => (
+                        <div key={cast.id}>{cast.character_name} 役</div>
+                      ))}
+                  </div>
+                  <p className="mt-2 text-gray-500 dark:text-gray-400">
+                    {work.year} : {work.season}
+                  </p>
+                  <a
+                    href={work.official_site_url}
+                    className="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Official Site
-                  </th>
-                  <th className="px-6 py-3 text-left text-lg dark:text-white font-medium text-gray-500 uppercase">
+                  </a>
+                  <a
+                    href={work.twitter_url}
+                    className="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     X(Twitter)
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {works.map((work) => (
-                  <tr key={work.id}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <Link legacyBehavior href={`/works/${work.id}`} passHref>
-                        <img
-                          src={work.image_url || "/default-image.png"}
-                          alt={work.title}
-                          className="h-20 w-20 rounded object-cover"
-                          onError={(e: any) =>
-                            (e.target.src = "/default-image.png")
-                          }
-                        />
-                      </Link>
-                    </td>
-                    <td className="text-wrap px-6 py-4 whitespace-nowrap dark:text-white text-xl text-gray-900">
-                      <Link legacyBehavior href={`/works/${work.id}`} passHref>
-                        {work.title}
-                      </Link>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap dark:text-white text-lg text-gray-500">
-                      {work.casts
-                        .filter((cast) => cast.person_id === person_id)
-                        .map((cast) => (
-                          <div key={cast.id}>{cast.character_name} 役</div>
-                        ))}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap dark:text-white text-lg text-gray-500">
-                      {work.year} : {work.season}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap dark:text-white text-right text-lg font-medium">
-                      <a
-                        href={work.official_site_url}
-                        className="text-indigo-600 hover:text-indigo-900"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Official Site
-                      </a>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-medium">
-                      <a
-                        href={work.twitter_url}
-                        className="text-indigo-600 hover:text-indigo-900"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        X(Twitter)
-                      </a>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-100 border-t rounded-b-xl py-3 px-4 md:py-4 md:px-5 dark:bg-slate-900 dark:border-gray-700">
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-500">
+                Last updated 5 mins ago
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 };
