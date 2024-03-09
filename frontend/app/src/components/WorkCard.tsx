@@ -1,6 +1,7 @@
 // components/WorkCard.tsx
 import React from "react";
-import { Work } from "../types"; // 適宜パスを調整してください
+import { Work } from "../types";
+import Link from "next/link";
 
 interface WorkCardProps {
   work: Work;
@@ -15,19 +16,25 @@ const WorkCard: React.FC<WorkCardProps> = ({ work }) => {
   return (
     <div className="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
       <div className="h-64 flex flex-col justify-center items-center bg-blue-600 rounded-lg">
-        <img
-          src={work.image_url || "/default-image.png"}
-          alt={work.title}
-          className="object-cover h-full w-full rounded-lg"
-          onError={(e: any) => (e.target.src = "/default-image.png")}
-        />
+        <Link legacyBehavior href={`/works/${work.id}`} passHref>
+          <a style={{ display: "block", width: "100%", height: "100%" }}>
+            <img
+              src={work.image_url || "/default-image.png"}
+              alt={work.title}
+              className="object-cover h-full w-full rounded-lg cursor-pointer"
+              onError={(e) => (e.currentTarget.src = "/default-image.png")}
+            />
+          </a>
+        </Link>
       </div>
       <div className="p-4 md:p-6">
         <span className="mt-3 text-gray-500">
           {work.year} : {work.season}
         </span>
         <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-300">
-          {work.title}
+          <Link legacyBehavior href={`/works/${work.id}`} passHref>
+            {work.title}
+          </Link>
         </h3>
       </div>
       <div className="mt-auto flex border-t border-gray-200 divide-x divide-gray-200 dark:border-gray-700 dark:divide-gray-700">

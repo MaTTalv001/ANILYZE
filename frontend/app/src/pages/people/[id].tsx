@@ -95,7 +95,7 @@ const Person: FC = () => {
                 {/* 公式サイトのリンク */}
                 <a
                   href={data.official_site_url}
-                  className="max-w-[8rem] bg-black border border-white flex  gap-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+                  className="max-w-[8rem] bg-black border border-white flex  gap-2 bg-black hover:bg-black text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
                 >
                   Official
                 </a>
@@ -103,7 +103,7 @@ const Person: FC = () => {
                 {/* Twitterのリンク */}
                 <a
                   href={data.twitter_url}
-                  className="max-w-[8rem] bg-black border border-white hover:bg-gray-800 flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+                  className="max-w-[8rem] bg-black border border-white hover:bg-gray-800 flex items-center justify-center gap-2 bg-black hover:bg-black text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
                 >
                   {/* 新しいTwitterロゴ */}　
                   <svg

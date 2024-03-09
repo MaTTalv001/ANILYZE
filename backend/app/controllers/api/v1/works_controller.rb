@@ -16,8 +16,8 @@ class Api::V1::WorksController < ApplicationController
   end
 
   def show
-    work = Work.includes(people: :casts).find(params[:id])
-    render json: work, include: [people: { include: :casts }]
+    work = Work.includes(:casts, people: :casts).find(params[:id])
+    render json: work.as_json(include: [:casts, people: { include: :casts }])
   end
 end
 

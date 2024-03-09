@@ -46,12 +46,12 @@ const CoActorsTable: React.FC<CoActorsTableProps> = ({ id }) => {
                 {info.name}
               </a>
             </h3>
-            <p className="my-1 text-2xl font-medium uppercase text-gray-700 dark:text-gray-200">
+            <p className="my-1 text-2xl  font-medium uppercase text-gray-700 dark:text-gray-200">
               共演回数: {info.count}
             </p>
             <button
               onClick={() => openModal(info.works)}
-              className="pt-2 pb-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700"
+              className="pt-2 pb-2 px-4 dark:bg-white bg-black text-white dark:text-black rounded hover:bg-gray-300"
             >
               共演作品
             </button>

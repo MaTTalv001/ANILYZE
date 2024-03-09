@@ -1,5 +1,6 @@
 import React from "react";
 import { Work } from "../types";
+import Link from "next/link";
 
 interface WorksTableProps {
   works: Work[];
@@ -39,17 +40,21 @@ const WorksTable: React.FC<WorksTableProps> = ({ works, person_id }) => {
                 {works.map((work) => (
                   <tr key={work.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <img
-                        src={work.image_url || "/default-image.png"}
-                        alt={work.title}
-                        className="h-20 w-20 rounded object-cover"
-                        onError={(e: any) =>
-                          (e.target.src = "/default-image.png")
-                        }
-                      />
+                      <Link legacyBehavior href={`/works/${work.id}`} passHref>
+                        <img
+                          src={work.image_url || "/default-image.png"}
+                          alt={work.title}
+                          className="h-20 w-20 rounded object-cover"
+                          onError={(e: any) =>
+                            (e.target.src = "/default-image.png")
+                          }
+                        />
+                      </Link>
                     </td>
                     <td className="text-wrap px-6 py-4 whitespace-nowrap dark:text-white text-xl text-gray-900">
-                      {work.title}
+                      <Link legacyBehavior href={`/works/${work.id}`} passHref>
+                        {work.title}
+                      </Link>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap dark:text-white text-lg text-gray-500">
                       {work.casts
